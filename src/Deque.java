@@ -1,6 +1,8 @@
 
 public class Deque<T> {
-	private List<T> queue;
+	public Deque() {
+		this.queue = new List<T>();
+	}
 	
 	public void PushAtHead(T data) {
 		this.queue.addFirst(data);
@@ -26,5 +28,13 @@ public class Deque<T> {
 		return this.queue.size() <= 0;
 	}
 	
+	public T HeadData() {
+		return this.queue.head().data;
+	}
 	
+	public T TailData() {
+		return this.queue.tail().data;
+	}
+	
+	private List<T> queue;
 }

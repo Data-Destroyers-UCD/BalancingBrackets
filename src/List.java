@@ -1,8 +1,10 @@
-// Singly Linked List Implementation
+/* 
+ * Singly Linked List Implementation 
+ * 
+ * SLL
+ * */
 public class List<T> {
-	private ListNode head;
-	private ListNode tail;
-	private int length;
+
 	
 	public List() {
 		this.head = null;
@@ -78,8 +80,22 @@ public class List<T> {
 		return this.length;
 	}
 	
+	public ListNode head() {
+		return this.head;
+	}
+	
+	public ListNode tail() {
+		return this.tail;
+	}
+	
+	
+	private ListNode head;
+	private ListNode tail;
+	private int length;
+	
 	private void createHead(T data) {
 		this.head = new ListNode(data);
 		this.tail = this.head;
 	}
+	
 }

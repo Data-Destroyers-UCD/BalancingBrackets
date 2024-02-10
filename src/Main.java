@@ -1,13 +1,13 @@
+import java.io.IOException;
 
 public class Main {
 
-	public static void main(String[] args) {
-		System.out.println("I want to be featured in a Stack Program asd!");
-		System.out.println("This line is for Yu's test");
-		
-		
+	public static void main(String[] args) throws IOException {
+		String programPath = "src/Deque.java";
+		//String programPath = "src/Brackets.txt";
 		// Pass a directory to check for Files
-
+		BalancedBrackets bb = new BalancedBrackets();
+		System.out.println(bb.isBalanced(programPath)); 
 	}
 
 }

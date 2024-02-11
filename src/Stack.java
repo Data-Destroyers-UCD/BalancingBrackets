@@ -1,58 +1,39 @@
 
 public class Stack<T> {
-	private Node<T> top;
-	private int size; 
-
+	private List<T> stack;
+	 
 	public Stack() {
-        top = null;
-        size = 0;
+        this.stack = new List<T>();
     }
-
-    private static class Node<T> {
-        T data;
-        Node<T> next;
-
-        Node(T data) {
-            this.data = data;
-            this.next = null;
-        }
-    }
-
 
     public void push(T item) {
-        Node<T> newNode = new Node<>(item);
-        newNode.next = top;
-        top = newNode;
-        size++;
+        this.stack.addFirst(item);
     }
 
 
-    public T pop() {
-        T item = top.data;
-        top = top.next;
-        size--;
-        return item;
+    public T pop() {   
+        return this.stack.removeFirst();
     }
 
 
     public T peek() {
-        return top.data;
+        return this.stack.head().data;
     }
 
 
     public boolean isEmpty() {
-        return top == null;
+        return this.stack.size() <= 0;
     }
 
 
     public int size() {
-        return size;
+        return this.stack.size();
     }
 
 
-    public void clear() {
-        top = null;
-        size = 0;
-    }
+    // public void clear() {
+    //     top = null;
+    //     size = 0;
+    // }
 }
 

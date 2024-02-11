@@ -1,5 +1,5 @@
 
 
 
-		 for (i < BalancedBrackets.openingParanthesis.length; i++)
+		 for (i < BalancedBrackets.openingParanthesis.length; i++) {
 	

@@ -4,9 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.util.Stack; // TODO Replace with user defined stack
-
-
 public class BalancedBrackets {
 	
 	public BalancedBrackets() {
@@ -50,7 +47,7 @@ public class BalancedBrackets {
 		return this.isEmpty();
 	}
 	
-	private static boolean shouldUseStack = false;
+	private static boolean shouldUseStack = true;
 	private static char[] openingParanthesis = { '{', '[', '(' };
 	private static char[] closingParanthesis = { '}', ']', ')'};
 	
@@ -60,6 +57,7 @@ public class BalancedBrackets {
 	private void push(Character value) {
 		if(BalancedBrackets.shouldUseStack) {
 			this.stack.push(value);
+			return;
 		} 
 		
 		this.deque.PushAtHead(value);

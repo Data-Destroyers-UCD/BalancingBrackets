@@ -8,9 +8,10 @@ import java.nio.file.Paths;
 public class BalancedBrackets {
 	
 	// Constructor
-	public BalancedBrackets() {
+	public BalancedBrackets(boolean shouldUseStack) {
+		BalancedBrackets.shouldUseStack=shouldUseStack;
 		// Check which data structure to utilise
-		if(BalancedBrackets.shouldUseStack) {
+		if(shouldUseStack) {
 			this.stack = new Stack<Character>();
 		} else {
 			this.deque = new Deque<Character>();

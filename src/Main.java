@@ -1,9 +1,12 @@
 // Imports for File exceptions
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 // Definition for the main class
@@ -20,32 +23,58 @@ public class Main {
 		BalancedBrackets bb2 = new BalancedBrackets(false);
 		System.out.println(bb2.isBalanced(programPath));
 
-		// List of all file paths
-		List<String> filePaths = Arrays.asList(
-				"src/inputs/AccessControlException.java",
-				"src/inputs/AlgorithmConstraints.java",
-				"src/inputs/Ref.java",
-				"src/inputs/SignedMutableBigInteger.java",
-				"src/inputs/Policy.java",
-				"src/inputs/AccessController.java",
-				"src/inputs/AccessControlContext.java",
-				"src/inputs/Security.java",
-				"src/inputs/combination.java",
-				"src/inputs/combination2.java",
-				"src/inputs/combination3.java"
+//		 List of all file paths
+//		List<String> filePaths = Arrays.asList(
+//				"src/inputs/AccessControlException.java",
+//				"src/inputs/AlgorithmConstraints.java",
+//				"src/inputs/Ref.java",
+//				"src/inputs/SignedMutableBigInteger.java",
+//				"src/inputs/Policy.java",
+//				"src/inputs/AccessController.java",
+//				"src/inputs/AccessControlContext.java",
+//				"src/inputs/Security.java",
+//				"src/inputs/combination.java",
+//				"src/inputs/combination2.java",
+//				"src/inputs/combination3.java"
+//
+//				// ... more file paths
+//		);
+//
+//		// Header for the table
+//		System.out.printf("%-30s %-15s %-15s %-15s%n", "Program", "Lines of Code", "Stack Time", "Deque Time");
+//		// Test each file
+//		for (String filePath : filePaths) {
+//			long lines = Files.lines(Paths.get(filePath)).count();
+//
+//			// Stack time test
+//			long startStackTime = System.currentTimeMillis();
+//			new BalancedBrackets(true).isBalanced(filePath);
+//			long stackTime = System.currentTimeMillis() - startStackTime;
+//
+//			// Deque time test
+//			long startDequeTime = System.currentTimeMillis();
+//			new BalancedBrackets(false).isBalanced(filePath);
+//			long dequeTime = System.currentTimeMillis() - startDequeTime;
+//
+//			// Output the formatted result for this file
+//			System.out.printf("%-30s %-15d %-15s %-15s%n", new File(filePath).getName(), lines, stackTime+"ms", dequeTime+"ms");
+//		}
 
-				// ... more file paths
-		);
 
-		// Header for the table
-		System.out.printf("%-30s %-15s %-15s %-15s%n", "Program", "Lines of Code", "Stack Time", "Deque Time");
 
-		// Test each file
-		for (String filePath : filePaths) {
+//only specify the folder src
+		File dir = new File("src/inputs");
+		FilenameFilter filter = (f, name) -> name.endsWith(".java");
+		String[] fileNames = dir.list(filter);
+
+		List<FileInfo> fileInfoList = new ArrayList<>();
+
+		for(String fileName : fileNames) {
+			String filePath = "src/inputs/" + fileName;
 			long lines = Files.lines(Paths.get(filePath)).count();
 
 			// Stack time test
-			long startStackTime = System.currentTimeMillis();
+			long startStackTime = System.currentTimeMillis();;
 			new BalancedBrackets(true).isBalanced(filePath);
 			long stackTime = System.currentTimeMillis() - startStackTime;
 
@@ -54,10 +83,19 @@ public class Main {
 			new BalancedBrackets(false).isBalanced(filePath);
 			long dequeTime = System.currentTimeMillis() - startDequeTime;
 
-			// Output the formatted result for this file
-			System.out.printf("%-30s %-15d %-15s %-15s%n", new File(filePath).getName(), lines, stackTime+"ms", dequeTime+"ms");
+			fileInfoList.add(new FileInfo(fileName, lines, stackTime, dequeTime));
 		}
 
+		// Sort by line count
+		fileInfoList.sort(Comparator.comparingLong(f -> f.lineCount));
+
+		// Header for the table
+		System.out.printf("%-30s %-15s %-15s %-15s%n", "Program", "Lines of Code", "Stack Time", "Deque Time");
+
+		// Output the sorted result
+		for (FileInfo fileInfo : fileInfoList) {
+			System.out.printf("%-30s %-15d %-15s %-15s%n", fileInfo.fileName, fileInfo.lineCount, fileInfo.stackTime + "ms", fileInfo.dequeTime + "ms");
+		}
 
 
 

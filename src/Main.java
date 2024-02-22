@@ -13,76 +13,34 @@ import java.util.List;
 public class Main {
 	// main function that serves as the execution point
 	public static void main(String[] args) throws IOException {
-		// Get the path of the program
-		//String programPath = "src/BalancedBrackets.java";
-		String programPath = "src/Brackets.txt";
-		// Create a balanced brackets object
-		BalancedBrackets bb = new BalancedBrackets(true);
-		// Print if the brackets are balanced
-		System.out.println(bb.isBalanced(programPath));
-		BalancedBrackets bb2 = new BalancedBrackets(false);
-		System.out.println(bb2.isBalanced(programPath));
-
-//		 List of all file paths
-//		List<String> filePaths = Arrays.asList(
-//				"src/inputs/AccessControlException.java",
-//				"src/inputs/AlgorithmConstraints.java",
-//				"src/inputs/Ref.java",
-//				"src/inputs/SignedMutableBigInteger.java",
-//				"src/inputs/Policy.java",
-//				"src/inputs/AccessController.java",
-//				"src/inputs/AccessControlContext.java",
-//				"src/inputs/Security.java",
-//				"src/inputs/combination.java",
-//				"src/inputs/combination2.java",
-//				"src/inputs/combination3.java"
-//
-//				// ... more file paths
-//		);
-//
-//		// Header for the table
-//		System.out.printf("%-30s %-15s %-15s %-15s%n", "Program", "Lines of Code", "Stack Time", "Deque Time");
-//		// Test each file
-//		for (String filePath : filePaths) {
-//			long lines = Files.lines(Paths.get(filePath)).count();
-//
-//			// Stack time test
-//			long startStackTime = System.currentTimeMillis();
-//			new BalancedBrackets(true).isBalanced(filePath);
-//			long stackTime = System.currentTimeMillis() - startStackTime;
-//
-//			// Deque time test
-//			long startDequeTime = System.currentTimeMillis();
-//			new BalancedBrackets(false).isBalanced(filePath);
-//			long dequeTime = System.currentTimeMillis() - startDequeTime;
-//
-//			// Output the formatted result for this file
-//			System.out.printf("%-30s %-15d %-15s %-15s%n", new File(filePath).getName(), lines, stackTime+"ms", dequeTime+"ms");
-//		}
-
-
-
-//only specify the folder src
+	
+		// Only specify the folder source
 		File dir = new File("src/inputs");
+		// Filter the java files
 		FilenameFilter filter = (f, name) -> name.endsWith(".java");
+		// Get the file names array
 		String[] fileNames = dir.list(filter);
 
+		// Create an empty list for file info
 		List<FileInfo> fileInfoList = new ArrayList<>();
-
+		// Loop through each file in the array of file names
 		for(String fileName : fileNames) {
+			// Create a file name relative to the source of the program
 			String filePath = "src/inputs/" + fileName;
+			// Get the line count
 			long lines = Files.lines(Paths.get(filePath)).count();
 
 			// Stack time test
-			long startStackTime = System.currentTimeMillis();;
-			new BalancedBrackets(true).isBalanced(filePath);
-			long stackTime = System.currentTimeMillis() - startStackTime;
+			long startStackTime = System.currentTimeMillis(); // Start the timer
+			new BalancedBrackets(true).isBalanced(filePath); // Check bracket balance
+			long stackTime = System.currentTimeMillis() - startStackTime; // calculate the time
 
 			// Deque time test
-			long startDequeTime = System.currentTimeMillis();
-			new BalancedBrackets(false).isBalanced(filePath);
-			long dequeTime = System.currentTimeMillis() - startDequeTime;
-
+			long startDequeTime = System.currentTimeMillis(); // Start the timer
+			new BalancedBrackets(false).isBalanced(filePath); // Check bracket balance
+			long dequeTime = System.currentTimeMillis() - startDequeTime; // calculate the time
+			
+			// Add the file information to the list
 			fileInfoList.add(new FileInfo(fileName, lines, stackTime, dequeTime));
 		}
 
@@ -92,7 +50,7 @@ public class Main {
 		// Header for the table
 		System.out.printf("%-30s %-15s %-15s %-15s%n", "Program", "Lines of Code", "Stack Time", "Deque Time");
 
-		// Output the sorted result
+		// Output the sorted result in table form
 		for (FileInfo fileInfo : fileInfoList) {
 			System.out.printf("%-30s %-15d %-15s %-15s%n", fileInfo.fileName, fileInfo.lineCount, fileInfo.stackTime + "ms", fileInfo.dequeTime + "ms");
 		}

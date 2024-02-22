@@ -15,6 +15,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 	
 		// Only specify the folder source
+		// Note: the java files in the inputs folder might display errors in eclipse IDE as they are manipulated for the sake of this project.
 		File dir = new File("src/inputs");
 		// Filter the java files
 		FilenameFilter filter = (f, name) -> name.endsWith(".java");
